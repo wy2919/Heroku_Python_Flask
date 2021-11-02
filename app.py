@@ -24,6 +24,7 @@ def homepage():
     aa = cursor.fetchall()
 
     print(len(aa))
+    return len(aa)
 #     the_time = datetime.now().strftime("%A, %d %b %Y %l:%M %p")
 
 #     return """
