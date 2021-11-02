@@ -2,34 +2,6 @@
 
 ### tl;dr 
 
-A walkthrough on how to get set up with Heroku and its toolkit and then how to deploy a simple web application (for free) on the Heroku Cloud. 
-
-To see a more advanced Flask app that uses USGS data and Google APIs, checkout this repo: [datademofun/heroku-flask-quakes-lesssimple](https://github.com/datademofun/heroku-flask-quakes-lesssimple)
-
-This is a long README of the steps, but all the actual code and configuration for this app is included in this repo. You can copy and deploy it through your own Heroku account.
-
-
-# Deploying a simple Flask app to the cloud via Heroku
-
-This walkthrough will acquaint you with the [popular Heroku cloud application platform](https://devcenter.heroku.com/start). Previously, we have been able to create Python Flask apps (see lessons [here](http://www.compjour.org/lessons/flask-single-page/) and [here](http://www.compjour.org/lessons/flask-recalls/)) and run them locally on our own computers. With a cloud service, we are able to put our websites onto the public World Wide Web, with a publicly accessible URL.
-
-A live version of this lesson's very simple app can be found at this URL:
-https://warm-scrubland-16039.herokuapp.com/
-
-(it'll be slow because I'm using Heroku's free tier)
-
-To reduce the number of new moving parts to learn about, [we'll only worry about creating the simplest of Flask apps](http://www.compjour.org/lessons/flask-single-page/) -- the lesser the complexity, the fewer the dependencies, and thus, the fewer the conflicts. So pay attention to the steps that involve touching the Heroku service and toolset.
-
-Deploying an app on the cloud just means that we're putting code on a computer that we have no direct control over. Writing the Python app code is the same as it was before, but we have to follow a few Heroku conventions before Heroku will execute our code on its own computers.
-
-Review the lessons on [creating a simple Flask app if you've forgotten how to put together a simple Flask app](http://www.compjour.org/lessons/flask-single-page/).
-
-Some of the instructions in this tutorial comes from these this official Heroku tutorial: [Getting Started on Heroku with Python](https://devcenter.heroku.com/articles/getting-started-with-python). However, be warned, the official tutorial includes a lot of extra steps that may not apply to your system. I've tried to filter them to a minimum.
-
-
-------------------
-
-
 
 # Sign up for Heroku
 
@@ -65,64 +37,22 @@ Create a basic Flask app of any kind, i.e. one that consists of just __app.py__.
 
 Heck, try to write it out by memory if you can -- below, I've made the app output simple HTML that includes the current time and a placeholder image from the [loremflickr.com](http://loremflickr.com/) service:
 
-~~~py
-from flask import Flask
-from datetime import datetime
-app = Flask(__name__)
-
-@app.route('/')
-def homepage():
-    the_time = datetime.now().strftime("%A, %d %b %Y %l:%M %p")
-
-    return """
-    <h1>Hello heroku</h1>
-    <p>It is currently {time}.</p>
-
-    <img src="http://loremflickr.com/600/400">
-    """.format(time=the_time)
-
-if __name__ == '__main__':
-    app.run(debug=True, use_reloader=True)
-~~~
-
-You should be able to run this app on your own system via the familiar invocation and visiting [http://localhost:5000](http://localhost:5000):
-
-~~~sh
-$ python app.py
-~~~
 
 
 # Specifying dependencies for deploying Heroku
 
 (the following comes from Heroku's guide to [Deploying Python and Django Apps on Heroku](https://devcenter.heroku.com/articles/deploying-python))
 
-Our simple Flask app has has a couple of __dependencies__: the Python interpreter and the Flask library (duh). Which means that Python and the Flask library must be installed on our computer.
 
-When we talk about deploying our app onto Heroku, or any cloud service, we are working with _someone else's computer_. And, for the most part, we can't count on "someone else's computer" to have the same software stack as we do.
 
-With Heroku, we have to include some metadata with our application code, so that Heroku knows how to set up a compatible webserver and install the software that our application needs. The metadata can be as simple as including a few plaintext files, which I list below in the next section. 
+## requirements.txt 文件
 
-## Installing the gunicorn web server
-
-Whenever we run `python app.py` from our command-line, we're running the default webserver that comes with Flask. However, Heroku seems to prefer a [web server called __gunicorn__](https://devcenter.heroku.com/articles/python-gunicorn). Just so that we can follow along with Heroku's documentation, let's install gunicorn on our own system. It's a Python library like any other and can be installed with __pip__:
-
-~~~sh
-$ pip install gunicorn
-~~~
-
-## Adding a requirements.txt
-
-By convention, Python packages often include a plaintext file named __requirements.txt__, in which the dependencies for the package are listed on each line.
-
-Create an empty file named `requirements.txt` (in the same root folder as __app.py__).
-
-So, what our are dependencies? For starters, __Flask__. So, add it to __requirements.txt__ (it's case sensitive):
+这是pip库 一行一个
 
 ~~~
 Flask
 ~~~
 
-Even though it's not part of our __app.py__, we did just install __gunicorn__ -- because I said to -- so let's throw that into __requirements.txt__:
 
 ~~~
 Flask
@@ -130,11 +60,9 @@ gunicorn
 ~~~
 
 
-## Specifying Python version with `runtime.txt`
-
-Heroku will know that we be running a Python app, but because there's a huge disparity between Python versions (notably, [Python 2 versus 3](https://wiki.python.org/moin/Python2orPython3)), we need to tell Heroku to use the Python version that we're using on our own computer to develop our app.
-
-Which version of Python are we/you running? From your command line, run the Python interpreter with the `--version` flag:
+##  `runtime.txt`
+指定py版本 
+(https://wiki.python.org/moin/Python2orPython3)), we need to tell Heroku to use the Python version that we're using on our own computer to develop our app.
 
 ~~~sh
 $ python --version
