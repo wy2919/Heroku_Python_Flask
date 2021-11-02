@@ -23,8 +23,14 @@ def homepage():
     cursor.execute(sql)
     aa = cursor.fetchall()
 
+    c=''
     print(len(aa))
-    return len(aa)
+    for i in aa:
+        c+=i[0] + " --------------------> 答案：" + i[1]+'<br />'
+        # print(i[4] + "  答案：" + i[5]+'<br />')
+    print(c)
+
+    return c
 #     the_time = datetime.now().strftime("%A, %d %b %Y %l:%M %p")
 
 #     return """
