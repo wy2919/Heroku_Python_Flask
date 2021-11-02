@@ -1,17 +1,37 @@
 from flask import Flask
 from datetime import datetime
+import pymysql.cursors
 app = Flask(__name__)
 
 @app.route('/')
 def homepage():
-    the_time = datetime.now().strftime("%A, %d %b %Y %l:%M %p")
+    
+    # 连接数据库
+    connect = pymysql.Connect(
+        host='127.0.0.1',  # 服务器地址
+        port=3306,  # 端口
+        user='root',  # 数据库用户名
+        passwd='150530wang',  # 数据库密码
+        db='卓越题库',  # 要连接的数据库
+        charset='utf8'  # 连接编码，存在中文的时候，连接需要添加charset='utf8'，否则中文显示乱码。
+    )
 
-    return """
-    <h1>Hello heroku</h1>
-    <p>It is currently {time}.</p>
+    # 获取游标
+    cursor = connect.cursor()
+    sql = "select distinct 题目,答案 from 卓越题库 where 题目 like '%" + 题目 + "%'"
+    # sql='insert into table_name (name)values ("asd")'
+    cursor.execute(sql)
+    aa = cursor.fetchall()
 
-    <img src="http://loremflickr.com/600/400" />
-    """.format(time=the_time)
+    print(len(aa))
+#     the_time = datetime.now().strftime("%A, %d %b %Y %l:%M %p")
+
+#     return """
+#     <h1>Hello heroku</h1>
+#     <p>It is currently {time}.</p>
+
+#     <img src="http://loremflickr.com/600/400" />
+#     """.format(time=the_time)
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
