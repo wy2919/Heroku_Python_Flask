@@ -26,7 +26,7 @@ def homepage():
     c=''
 #     print(len(aa))
     for i in aa:
-        c+=i['name']+'<br />'
+        c+=i[1]+'<br />'
         # print(i[4] + "  答案：" + i[5]+'<br />')
 #     print(c)
 
