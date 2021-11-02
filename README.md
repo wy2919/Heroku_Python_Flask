@@ -1,7 +1,4 @@
 
-> [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://dashboard.heroku.com/new?template=https://github.com/wy2919/Heroku_Python_Flask)
-
-
 ##  `Procfile`
 
 启动命令 和启动脚本文件   web: gunicorn 文件名:app --log-file=-   启动app.py文件
