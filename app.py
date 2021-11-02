@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def homepage():
-    
+     
     # 连接数据库
     connect = pymysql.Connect(
         host='remotemysql.com',  # 服务器地址
