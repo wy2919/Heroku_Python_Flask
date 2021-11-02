@@ -24,11 +24,11 @@ def homepage():
     aa = cursor.fetchall()
 
     c=''
-    print(len(aa))
+#     print(len(aa))
     for i in aa:
-        c+=i[0] + " --------------------> 答案：" + i[1]+'<br />'
+        c+=i['name']+'<br />'
         # print(i[4] + "  答案：" + i[5]+'<br />')
-    print(c)
+#     print(c)
 
     return c
 #     the_time = datetime.now().strftime("%A, %d %b %Y %l:%M %p")
