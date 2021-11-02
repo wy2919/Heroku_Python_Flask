@@ -5,6 +5,11 @@
 web: gunicorn app:app --log-file=-
 ~~~
 
+~~~
+web: gunicorn gettingstarted.wsgi
+# 运行gettingstarted文件夹下的wsgi.py
+~~~
+
 
 
 ##  `requirements.txt`
