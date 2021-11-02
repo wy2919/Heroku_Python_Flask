@@ -1,5 +1,13 @@
+##  `Procfile`
 
-## requirements.txt 文件
+启动命令 和启动脚本文件   web: gunicorn 文件名:app --log-file=-   启动app.py文件
+~~~
+web: gunicorn app:app --log-file=-
+~~~
+
+
+
+##  `requirements.txt`
 
 这是pip库 一行一个
 
@@ -21,11 +29,5 @@ gunicorn
 python-3.5.1
 ~~~
 
-##  `Procfile`
-
-启动命令 和启动脚本文件   web: gunicorn 文件名:app --log-file=-   启动app.py文件
-~~~
-web: gunicorn app:app --log-file=-
-~~~
 
 
