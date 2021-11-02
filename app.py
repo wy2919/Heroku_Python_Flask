@@ -8,17 +8,17 @@ def homepage():
     
     # 连接数据库
     connect = pymysql.Connect(
-        host='127.0.0.1',  # 服务器地址
+        host='remotemysql.com',  # 服务器地址
         port=3306,  # 端口
-        user='root',  # 数据库用户名
-        passwd='150530wang',  # 数据库密码
-        db='卓越题库',  # 要连接的数据库
+        user='JATwLEkzc0',  # 数据库用户名
+        passwd='SOc711GD3A',  # 数据库密码
+        db='JATwLEkzc0',  # 要连接的数据库
         charset='utf8'  # 连接编码，存在中文的时候，连接需要添加charset='utf8'，否则中文显示乱码。
     )
 
     # 获取游标
     cursor = connect.cursor()
-    sql = "select distinct 题目,答案 from 卓越题库 where 题目 like '%" + 题目 + "%'"
+    sql = "select * from qx_activity"
     # sql='insert into table_name (name)values ("asd")'
     cursor.execute(sql)
     aa = cursor.fetchall()
